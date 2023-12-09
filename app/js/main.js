@@ -4,6 +4,11 @@ const rectWrapper = document.querySelector(".rect-wrapper");
 const container = document.querySelector(".container");
 const field = document.querySelector(".field");
 
+const rowInput = document.querySelector('.row-input');
+const columnInput = document.querySelector('.column-input');
+const rowsColumnsBtn = document.querySelector('.rows-columns-btn');
+
+
 const createTitle = (title, wrapperr) => {
   const appTitle = document.createElement("h1");
   appTitle.classList.add("title");
@@ -12,104 +17,81 @@ const createTitle = (title, wrapperr) => {
 };
 
 const createRect = (inner) => {
-  inner.innerHTML += `<svg class="rect" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100">
-  <rect class="cls-1" x="0.5" y="0.5" width="99" height="99"></rect>
-  <path class="cls-2" d="M551,86.67v98H453v-98h98m1-1H452v100H552v-100Z" transform="translate(-452 -85.67)"/>
-</svg>`;
+//   let newElem = `<svg class="rect" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100">
+//   <rect class="cls-1" x="0.5" y="0.5" width="99" height="99"></rect>
+//   <path class="cls-2" d="M551,86.67v98H453v-98h98m1-1H452v100H552v-100Z" transform="translate(-452 -85.67)"/>
+// </svg>`;
+  let newElem = document.createElement('div');
+  newElem.classList.add('rect');
+  inner.append(newElem)
+  // inner.innerHTML += newElem;
 };
 
 createRectBtn.addEventListener("click", () => {
   createRect(rectWrapper);
+  widthHeightElems();
 });
+
+const widthHeightElems = () => {
+  let elems = document.querySelectorAll('.rect');
+
+  console.log(elems);
+
+  let width = getComputedStyle(elems[0]).width;
+  console.log(width);
+
+  elems.forEach(elem => {
+    elem.style.width = `${width}`;
+    elem.style.height = `${width}`;
+  })
+}
+
+const createGrid = (rows, columns, wrapper) => {
+  for (let i = 0; i < rows.value; i++) {
+    let gridRow = document.createElement('div');
+    gridRow.classList.add('grid-row')
+    wrapper.append(gridRow);
+    for (let j = 0; j < columns.value; j++) {
+      createRect(gridRow);
+    }
+  }
+}
+
+rowsColumnsBtn.addEventListener('click', () => {
+  createGrid(rowInput, columnInput, rectWrapper)
+})
+
+
 
 
 function getCoords(elem) {
-  // кроме IE8-
   var box = elem.getBoundingClientRect();
-  // console.log(box);
-  // console.log(pageYOffset);
-  // console.log(scrollY);
-  
-  
   return {
     top: box.top + pageYOffset,
     left: box.left + pageXOffset,
   };
 }
 
-
-
-var scale = 1;
 let width = 100;
-// field.addEventListener("wheel", (e) => {
-//   var delta = e.deltaY || e.detail || e.wheelDelta;
-
-//   // отмасштабируем при помощи CSS
-//   if (delta > 0) scale += 0.05;
-//   else scale -= 0.05;
-
-//   rectWrapper.style.transform =
-//     rectWrapper.style.WebkitTransform =
-//     rectWrapper.style.MsTransform =
-//       "scale(" + scale + ")";
-//   e.preventDefault();
-// });
 
 rectWrapper.addEventListener("wheel", (e) => {
-  // let coords = getCoords(rectWrapper);
-  
-  // var shiftX = e.pageX - coords.left;
-  // var shiftY = e.pageY - coords.top;
-
-  // console.log("++++++++++++++++++++++++++++++");
-  
-
-  // console.log("shiftX - " + shiftX);
-  // console.log("shiftY - " + shiftY);
-
-  // console.log("pageX - " + e.pageX);
-  // console.log("pageY - " + e.pageY);
-
-  // console.log("coords.left - " + coords.left);
-  // console.log("coords.top - " + coords.top);
-
-  // console.log("++++++++++++++++++++++++++++++");
-  
-
   var delta = e.deltaY || e.detail || e.wheelDelta;
-
-  // отмасштабируем при помощи CSS
-  // if (delta > 0) scale += 0.05;
-  // else scale -= 0.05;
-
-  // rectWrapper.style.transform =
-  //   rectWrapper.style.WebkitTransform =
-  //   rectWrapper.style.MsTransform =
-  //     "scale(" + scale + ")";
 
   if (delta > 0) {
     width += 10;
-  }
-  else {
+  } else {
     width -= 10;
   }
   rectWrapper.style.width = `${width}px`;
-  rectWrapper.querySelectorAll('.rect').forEach(elem => {
+  rectWrapper.querySelectorAll(".rect").forEach((elem) => {
     elem.style.width = `${width}px`;
     elem.style.height = `${width}px`;
-  })
+  });
 
   e.preventDefault();
 });
 
 rectWrapper.onmousedown = function (e) {
-
-  // console.log("++++++++");
-  // console.log(e);
-  // console.log("++++++++");
-  
-  
-
   let coords = getCoords(rectWrapper);
   var shiftX = e.pageX - coords.left;
   var shiftY = e.pageY - coords.top;
@@ -123,8 +105,7 @@ rectWrapper.onmousedown = function (e) {
   function moveAt(e) {
     rectWrapper.style.left = e.pageX - shiftX + "px";
     rectWrapper.style.top = e.pageY - shiftY + "px";
-    console.log(getComputedStyle(rectWrapper).width);
-    
+    // console.log(getComputedStyle(rectWrapper).width);
   }
 
   document.onmousemove = function (e) {
@@ -141,6 +122,6 @@ rectWrapper.ondragstart = function () {
   return false;
 };
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {  
   createTitle("Схема", inner);
 });

@@ -91,6 +91,7 @@ body {
   color: #77787a;
   background: #f3f3f6;
   position: relative;
+  overflow: hidden;
 }
 
 .rect-wrapper {
@@ -189,6 +190,8 @@ body {
   height: 100px;
   -ms-flex-negative: 0;
       flex-shrink: 0;
+  background: #37cbff;
+  border: 1px solid #ffffff;
 }
 .rect .cls-1 {
   fill: #37cbff;
@@ -202,17 +205,41 @@ body {
 }
 .rect-wrapper {
   position: relative;
-  background: #790909;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+.rect-wrapper .grid-row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .sidebar {
-  width: 150px;
+  height: 100vh;
   position: absolute;
+  padding: 30px 20px;
   right: 0;
   top: 0;
+  border-left: 1px solid #00bdb3;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 10px;
+  background: #ffffff;
+  z-index: 1001;
 }
 
-.create-rect-btn {
+.create-rect-btn,
+.rows-columns-btn {
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;
@@ -220,11 +247,26 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
-.create-rect-btn:hover {
+.create-rect-btn:hover,
+.rows-columns-btn:hover {
   background: rgb(11, 194, 133);
 }
-.create-rect-btn:active {
+.create-rect-btn:active,
+.rows-columns-btn:active {
   background: rgb(11, 194, 170);
+}
+
+.label {
+  color: #000;
+  width: 100%;
+  height: 20px;
+}
+
+input {
+  border: 1px solid #0bafa7;
+  border-radius: 2px;
+  outline-color: #0bafa7;
+  padding: 5px 10px;
 }
 @supports (-webkit-appearance:none){
 
