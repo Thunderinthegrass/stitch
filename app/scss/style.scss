@@ -1,0 +1,57 @@
+@import "vars";
+@import "fonts";
+@import "reset";
+@import "libs";
+@import "global";
+@import "header/header";
+@import "small-blocks/mobile-menu";
+@import "components/components";
+@import "sections/sections";
+
+.field {
+  height: 100vh;
+  background: #f8f7f7;
+  overflow: hidden;
+  overflow-x: auto;
+  flex: 1;
+  position: relative;
+}
+.rect {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  .cls-1 {
+    fill: #37cbff;
+    display: block;
+  }
+  .cls-2 {
+    fill: rgb(255, 255, 255);
+  }
+  .cls-3{
+    fill: #17cf73;
+  }
+  &-wrapper{
+    position: relative;
+    background: #790909;
+  }
+}
+.sidebar{
+  width: 150px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.create-rect-btn{
+  background: #00bdb3;
+  padding: 5px 12px;
+  border-radius: 3px;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+  &:hover{
+    background: rgb(11, 194, 133);
+  }
+  &:active{
+    background: rgb(11, 194, 170);
+  }
+}
