@@ -22,6 +22,7 @@
   flex-shrink: 0;
   background: #37cbff;
   border: 1px solid #ffffff;
+  box-sizing: content-box;
   .cls-1 {
     fill: #37cbff;
     display: block;
@@ -55,7 +56,8 @@
   z-index: 1001;
 }
 .create-rect-btn,
-.rows-columns-btn{
+.rows-columns-btn,
+.rects-divide-btn{
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;

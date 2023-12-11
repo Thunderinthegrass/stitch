@@ -192,6 +192,8 @@ body {
       flex-shrink: 0;
   background: #37cbff;
   border: 1px solid #ffffff;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
 }
 .rect .cls-1 {
   fill: #37cbff;
@@ -239,7 +241,8 @@ body {
 }
 
 .create-rect-btn,
-.rows-columns-btn {
+.rows-columns-btn,
+.rects-divide-btn {
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;
@@ -248,11 +251,13 @@ body {
   cursor: pointer;
 }
 .create-rect-btn:hover,
-.rows-columns-btn:hover {
+.rows-columns-btn:hover,
+.rects-divide-btn:hover {
   background: rgb(11, 194, 133);
 }
 .create-rect-btn:active,
-.rows-columns-btn:active {
+.rows-columns-btn:active,
+.rects-divide-btn:active {
   background: rgb(11, 194, 170);
 }
 
