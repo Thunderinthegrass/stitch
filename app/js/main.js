@@ -4,11 +4,40 @@ const rectWrapper = document.querySelector(".rect-wrapper");
 const container = document.querySelector(".container");
 const field = document.querySelector(".field");
 
-const rowInput = document.querySelector('.row-input');
-const columnInput = document.querySelector('.column-input');
+let rowInput = document.querySelector('.row-input');
+let columnInput = document.querySelector('.column-input');
 const rowsColumnsBtn = document.querySelector('.rows-columns-btn');
 
 const quantity = document.querySelector('.quantity');
+
+const colorInput = document.querySelector('.color-input');
+
+
+rectWrapper.addEventListener('click', (e)=> {
+  console.log(e.target);
+  
+})
+//цвета элементов
+const colorElements = () => {
+  const rect = rectWrapper.querySelectorAll('.rect');
+  
+  for (let i = 0; i < rect.length; i++) {
+    if (localStorage.getItem(`color${i}`)) {
+      rect[i].style.backgroundColor = localStorage.getItem(`color${i}`);
+    }
+  }
+  colorInput.addEventListener("input", () => {
+    let color = colorInput.value;
+  });
+  rect.forEach((elem, id) => {
+    elem.addEventListener("click", () => {
+      let color = colorInput.value;
+      elem.style.backgroundColor = `${color}`;
+      localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);
+    });
+  });
+}
+
 
 
 
@@ -20,20 +49,9 @@ const createTitle = (title, wrapperr) => {//генерирует заголов�
 };
 
 const createRect = (inner, elem) => {
-//v1
-//   let newElem = `<svg class="rect" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100">
-//   <rect class="cls-1" x="0.5" y="0.5" width="99" height="99"></rect>
-//   <path class="cls-2" d="M551,86.67v98H453v-98h98m1-1H452v100H552v-100Z" transform="translate(-452 -85.67)"/>
-// </svg>`;
-// inner.innerHTML += newElem;
-
-// v2
   let newElem = document.createElement('div');
   newElem.classList.add('rect');
   inner.append(newElem);
-
-// v3
-// inner.innerHTML += elem;
 };
 
 createRectBtn.addEventListener("click", () => {
@@ -57,19 +75,19 @@ const widthHeightElems = () => {
 
 const createGrid = (rows, columns, wrapper, quantity) => {
   let counter = 0;
-  for (let i = 0; i < rows.value; i++) {
+  for (let i = 0; i < rows; i++) {
     let gridRow = document.createElement('div');
     gridRow.classList.add('grid-row')
     wrapper.append(gridRow);
 
-    for (let j = 0; j < columns.value; j++) {
+    for (let j = 0; j < columns; j++) {
       createRect(gridRow);
 
       counter += 1;
     }
   }
 
-  quantity.innerHTML = counter;
+  quantity.innerHTML = counter;//счетчик квадратов
 
   //добавление границ между квадратами 10 на 10
   const gridRows = document.querySelectorAll('.grid-row');
@@ -92,13 +110,18 @@ const createGrid = (rows, columns, wrapper, quantity) => {
   }
 }
 
-rowsColumnsBtn.addEventListener('click', () => {
-  createGrid(rowInput, columnInput, rectWrapper, quantity)
+rowsColumnsBtn.addEventListener('click', () => {//запуск генерации квадратов
+  rowInput = rowInput.value;//значения инпутов
+  columnInput = columnInput.value;
+
+  localStorage.setItem('rows', rowInput);//добавляем эти значения в докал сторадж
+  localStorage.setItem('columns', columnInput);
+
+  createGrid(rowInput, columnInput, rectWrapper, quantity);
 })
 
 
-
-
+//координаты
 function getCoords(elem) {
   var box = elem.getBoundingClientRect();
   return {
@@ -109,13 +132,14 @@ function getCoords(elem) {
 
 let width = 100;
 
+//приближение - отдаление путем изменения размеров квадратов
 rectWrapper.addEventListener("wheel", (e) => {
   var delta = e.deltaY || e.detail || e.wheelDelta;
 
   if (delta > 0) {
-    width += 10;
-  } else {
     width -= 10;
+  } else {
+    width += 10;
   }
   rectWrapper.style.width = `${width}px`;
   rectWrapper.querySelectorAll(".rect").forEach((elem) => {
@@ -126,13 +150,14 @@ rectWrapper.addEventListener("wheel", (e) => {
   e.preventDefault();
 });
 
+//перемещение поля
 rectWrapper.onmousedown = function (e) {
   let coords = getCoords(rectWrapper);
   var shiftX = e.pageX - coords.left;
   var shiftY = e.pageY - coords.top;
 
   rectWrapper.style.position = "absolute";
-  document.body.appendChild(rectWrapper);
+  // document.body.appendChild(rectWrapper);
   moveAt(e);
 
   rectWrapper.style.zIndex = 1000; // над другими элементами
@@ -140,7 +165,6 @@ rectWrapper.onmousedown = function (e) {
   function moveAt(e) {
     rectWrapper.style.left = e.pageX - shiftX + "px";
     rectWrapper.style.top = e.pageY - shiftY + "px";
-    // console.log(getComputedStyle(rectWrapper).width);
   }
 
   document.onmousemove = function (e) {
@@ -159,4 +183,7 @@ rectWrapper.ondragstart = function () {
 
 document.addEventListener("DOMContentLoaded", () => {  
   createTitle("Схема", inner);
+  createGrid(rowInput, columnInput, rectWrapper, quantity);
+  createGrid(localStorage.getItem('rows'), localStorage.getItem('columns'), rectWrapper, quantity);//вызываем функцию создания квадратов, количество берем из локал стораджа
+  let timeout = setTimeout(colorElements(), 2000)
 });

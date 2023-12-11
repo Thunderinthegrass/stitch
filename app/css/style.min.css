@@ -194,6 +194,7 @@ body {
   border: 1px solid #ffffff;
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
+  position: relative;
 }
 .rect .cls-1 {
   fill: #37cbff;
@@ -242,22 +243,26 @@ body {
 
 .create-rect-btn,
 .rows-columns-btn,
-.rects-divide-btn {
+.rects-divide-btn,
+.input-color-label {
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;
   color: #ffffff;
   font-weight: 600;
+  text-align: center;
   cursor: pointer;
 }
 .create-rect-btn:hover,
 .rows-columns-btn:hover,
-.rects-divide-btn:hover {
+.rects-divide-btn:hover,
+.input-color-label:hover {
   background: rgb(11, 194, 133);
 }
 .create-rect-btn:active,
 .rows-columns-btn:active,
-.rects-divide-btn:active {
+.rects-divide-btn:active,
+.input-color-label:active {
   background: rgb(11, 194, 170);
 }
 
@@ -272,6 +277,42 @@ input {
   border-radius: 2px;
   outline-color: #0bafa7;
   padding: 5px 10px;
+}
+
+.input-color-label {
+  position: relative;
+}
+
+.input-wrapper {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: 0 auto;
+}
+
+.color-input {
+  width: 180px;
+  height: 180px;
+  z-index: 1;
+  position: relative;
+  border: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border-radius: 100px;
+}
+.color-input[type=color i]::-webkit-color-swatch-wrapper {
+  padding: 0;
 }
 @supports (-webkit-appearance:none){
 
