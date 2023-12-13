@@ -11,13 +11,20 @@ const rowsColumnsBtn = document.querySelector('.rows-columns-btn');
 const quantity = document.querySelector('.quantity');
 
 const colorInput = document.querySelector('.color-input');
-
+const sidebar = document.querySelector('.sidebar');
+const removeColorBtn = document.querySelector('.remove-color-btn');
 
 rectWrapper.addEventListener('click', (e)=> {
-  console.log(e.target);
+  // console.log(e.target);
   
 })
 //цвета элементов
+
+colorInput.addEventListener('click', () => {//при нажатии на выбор цвета кнопка сброса цвета становится активной, при перезагрузке она неактивна
+  removeColorBtn.disabled = false;
+  removeColorBtn.classList.add('active');
+})
+
 const colorElements = () => {
   const rect = rectWrapper.querySelectorAll('.rect');
   
@@ -26,20 +33,28 @@ const colorElements = () => {
       rect[i].style.backgroundColor = localStorage.getItem(`color${i}`);
     }
   }
-  colorInput.addEventListener("input", () => {
-    let color = colorInput.value;
-  });
   rect.forEach((elem, id) => {
     elem.addEventListener("click", () => {
       let color = colorInput.value;
-      elem.style.backgroundColor = `${color}`;
-      localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);
+
+      if (color != '#ffffff') {
+        elem.style.backgroundColor = `${color}`;
+        localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);
+      }
     });
   });
 }
 
+const removeColorInputValue = (input) => {//отключение value инпута
+  input.value = '#ffffff';
+  removeColorBtn.disabled = true;//кнопка сброса цвета становится неактивной
+  removeColorBtn.classList.remove('active');
+}
 
-
+removeColorBtn.addEventListener('click', () => {
+  removeColorInputValue(colorInput);
+  console.log(colorInput.value);
+})
 
 const createTitle = (title, wrapperr) => {//генерирует заголовок
   const appTitle = document.createElement("h1");
@@ -62,10 +77,10 @@ createRectBtn.addEventListener("click", () => {
 const widthHeightElems = () => {
   let elems = document.querySelectorAll('.rect');
 
-  console.log(elems);
+  // console.log(elems);
 
   let width = getComputedStyle(elems[0]).width;
-  console.log(width);
+  // console.log(width);
 
   elems.forEach(elem => {
     elem.style.width = `${width}`;
@@ -119,7 +134,6 @@ rowsColumnsBtn.addEventListener('click', () => {//запуск генераци�
 
   createGrid(rowInput, columnInput, rectWrapper, quantity);
 })
-
 
 //координаты
 function getCoords(elem) {
@@ -185,5 +199,6 @@ document.addEventListener("DOMContentLoaded", () => {
   createTitle("Схема", inner);
   createGrid(rowInput, columnInput, rectWrapper, quantity);
   createGrid(localStorage.getItem('rows'), localStorage.getItem('columns'), rectWrapper, quantity);//вызываем функцию создания квадратов, количество берем из локал стораджа
+  removeColorInputValue(colorInput);
   let timeout = setTimeout(colorElements(), 2000)
 });

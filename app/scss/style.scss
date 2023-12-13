@@ -60,7 +60,8 @@
 .create-rect-btn,
 .rows-columns-btn,
 .rects-divide-btn,
-.input-color-label{
+.input-color-label,
+.remove-color-btn{
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;
@@ -73,6 +74,18 @@
   }
   &:active{
     background: rgb(11, 194, 170);
+  }
+}
+.remove-color-btn{
+  background: #7ae6e0;
+  &:hover{
+    background: #7ae6e0;
+  }
+  &:active{
+    background: #7ae6e0;
+  }
+  &.active{
+    background: #00bdb3;
   }
 }
 .label{
@@ -98,17 +111,20 @@ input{
   justify-content: center;
   align-items: center;
   margin: 0 auto;
+  border: 3px solid #00bdb3;
 }
 .color-input{
-    width: 180px;
-    height: 180px;
-    z-index: 1;
-    position: relative;
-    border: none;
-    margin: 0;
-    padding: 0;
-    outline: none;
-    border-radius: 100px;
+  position: relative;
+  width: 180px;
+  height: 180px;
+  z-index: 1;
+  position: relative;
+  border: none;
+  margin: 0;
+  padding: 0;
+  outline: none;
+  border-radius: 100px;
+  cursor: pointer;
   &[type="color" i]::-webkit-color-swatch-wrapper {
     padding: 0;
   }

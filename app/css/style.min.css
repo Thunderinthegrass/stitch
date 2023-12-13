@@ -244,7 +244,8 @@ body {
 .create-rect-btn,
 .rows-columns-btn,
 .rects-divide-btn,
-.input-color-label {
+.input-color-label,
+.remove-color-btn {
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;
@@ -256,14 +257,29 @@ body {
 .create-rect-btn:hover,
 .rows-columns-btn:hover,
 .rects-divide-btn:hover,
-.input-color-label:hover {
+.input-color-label:hover,
+.remove-color-btn:hover {
   background: rgb(11, 194, 133);
 }
 .create-rect-btn:active,
 .rows-columns-btn:active,
 .rects-divide-btn:active,
-.input-color-label:active {
+.input-color-label:active,
+.remove-color-btn:active {
   background: rgb(11, 194, 170);
+}
+
+.remove-color-btn {
+  background: #7ae6e0;
+}
+.remove-color-btn:hover {
+  background: #7ae6e0;
+}
+.remove-color-btn:active {
+  background: #7ae6e0;
+}
+.remove-color-btn.active {
+  background: #00bdb3;
 }
 
 .label {
@@ -298,9 +314,11 @@ input {
       -ms-flex-align: center;
           align-items: center;
   margin: 0 auto;
+  border: 3px solid #00bdb3;
 }
 
 .color-input {
+  position: relative;
   width: 180px;
   height: 180px;
   z-index: 1;
@@ -310,6 +328,7 @@ input {
   padding: 0;
   outline: none;
   border-radius: 100px;
+  cursor: pointer;
 }
 .color-input[type=color i]::-webkit-color-swatch-wrapper {
   padding: 0;
