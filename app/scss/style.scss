@@ -25,12 +25,26 @@
   box-sizing: content-box;
   position: relative;
   // z-index: 10000;
+  &.selected{
+    position: relative;
+    &::after{
+      position: absolute;
+      content: "";
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: #0768e7;
+      opacity: 0.6;
+    }
+  }
   .cls-1 {
     fill: #37cbff;
     display: block;
   }
   .cls-2 {
     fill: rgb(255, 255, 255);
+    fill: rgb(183, 31, 31);
   }
   .cls-3{
     fill: #17cf73;
@@ -42,6 +56,15 @@
     .grid-row{
       display: flex;
     }
+  }
+}
+.select-rect{
+  background: #08e4b463;
+  border: 1px solid #06c098;
+  position: absolute;
+  z-index: 1100;
+  &.transparent{
+    opacity: 0;
   }
 }
 .sidebar{

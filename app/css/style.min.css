@@ -196,12 +196,26 @@ body {
           box-sizing: content-box;
   position: relative;
 }
+.rect.selected {
+  position: relative;
+}
+.rect.selected::after {
+  position: absolute;
+  content: "";
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: #0768e7;
+  opacity: 0.6;
+}
 .rect .cls-1 {
   fill: #37cbff;
   display: block;
 }
 .rect .cls-2 {
   fill: rgb(255, 255, 255);
+  fill: rgb(183, 31, 31);
 }
 .rect .cls-3 {
   fill: #17cf73;
@@ -220,6 +234,16 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.select-rect {
+  background: rgba(8, 228, 180, 0.3882352941);
+  border: 1px solid #06c098;
+  position: absolute;
+  z-index: 1100;
+}
+.select-rect.transparent {
+  opacity: 0;
 }
 
 .sidebar {
