@@ -21,9 +21,11 @@
   height: 100px;
   flex-shrink: 0;
   background: #37cbff;
+  background: #fdffff;
   border: 1px solid #ffffff;
   box-sizing: content-box;
   position: relative;
+  border: 1px solid #000000;
   // z-index: 10000;
   &.selected{
     position: relative;

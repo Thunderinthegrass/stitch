@@ -191,10 +191,12 @@ body {
   -ms-flex-negative: 0;
       flex-shrink: 0;
   background: #37cbff;
+  background: #fdffff;
   border: 1px solid #ffffff;
   -webkit-box-sizing: content-box;
           box-sizing: content-box;
   position: relative;
+  border: 1px solid #000000;
 }
 .rect.selected {
   position: relative;

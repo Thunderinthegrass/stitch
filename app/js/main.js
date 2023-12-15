@@ -170,15 +170,17 @@ rectWrapper.addEventListener("wheel", (e) => {
   e.preventDefault();
 });
 
-//перемещение поля
+//перемещение поля и блокировка при этом покраски квадратов
 rectWrapper.onmousedown = function (e) {
   if (e.altKey) {
+    let color = colorInput.value;//при нажатой кнопке alt значение цвета запоминается и выставляется вместо него белый, а если значение белый, то квадрат не красится
+    colorInput.value = '#ffffff';
+
     let coords = getCoords(rectWrapper);
     var shiftX = e.pageX - coords.left;
     var shiftY = e.pageY - coords.top;
 
     rectWrapper.style.position = "absolute";
-    // document.body.appendChild(rectWrapper);
     moveAt(e);
 
     rectWrapper.style.zIndex = 1000; // над другими элементами
@@ -195,6 +197,10 @@ rectWrapper.onmousedown = function (e) {
     rectWrapper.onmouseup = function () {
       document.onmousemove = null;
       rectWrapper.onmouseup = null;
+      
+      setTimeout(() => {//после того, как передвинули поле, отпускаем кнопку мыши, и через 100 миллисекунд значение цвета становится тем же, что и было до нажатия кнопки, можно снова красить
+        colorInput.value = color;
+      }, 100)
     };
   }
 };
@@ -203,8 +209,7 @@ rectWrapper.ondragstart = function () {
   return false;
 };
 
-const selectElements = () => {
-  //select elements выделение элементов
+const selectElements = () => {//select elements выделение элементов
 
   const container = document.querySelector(".field");
   const items = document.querySelectorAll(".rect");
@@ -271,7 +276,9 @@ const selectElements = () => {
   });
 
   document.body.addEventListener("mouseup", (e) => {
-    selectRect.remove();
+    if (selectRect) {
+      selectRect.remove();
+    }
   });
 };
 
@@ -287,7 +294,7 @@ document.addEventListener("DOMContentLoaded", () => {
     quantity
   ); //вызываем функцию создания квадратов, количество берем из локал стораджа
   removeColorInputValue(colorInput);
-  let timeout = setTimeout(colorElements(), 2000);
+  setTimeout(colorElements(), 2000);
 });
 
 document.body.onclick = (e) => {
