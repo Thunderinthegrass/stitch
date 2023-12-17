@@ -359,6 +359,92 @@ input {
 .color-input[type=color i]::-webkit-color-swatch-wrapper {
   padding: 0;
 }
+
+.icons-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 5px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.icons-list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 1px;
+  max-width: 232px;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+.icons-list_red {
+  background: #c70101;
+  border: 1px solid #c70101;
+}
+.icons-list_red .icons-item {
+  background: #c70101;
+}
+.icons-list_red .icons-item:hover svg {
+  fill: #ff9494;
+}
+.icons-list_green {
+  background: #056d05;
+  border: 1px solid #056d05;
+}
+.icons-list_green .icons-item {
+  background: #056d05;
+}
+.icons-list_green .icons-item:hover svg {
+  fill: #94ffaf;
+}
+.icons-list_blue {
+  background: #0000a3;
+  border: 1px solid #0000a3;
+}
+.icons-list_blue .icons-item {
+  background: #0000a3;
+}
+.icons-list_blue .icons-item:hover svg {
+  fill: #9694ff;
+}
+.icons-list_black {
+  background: #000000;
+  border: 1px solid #000000;
+}
+.icons-list_black .icons-item {
+  background: #000000;
+}
+.icons-list_black .icons-item:hover svg {
+  fill: #bebebe;
+}
+
+.icons-item {
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+}
+.icons-item svg {
+  width: 22px;
+  height: 22px;
+  fill: #ffffff;
+  -webkit-transition: 0.2s;
+  transition: 0.2s;
+  pointer-events: none;
+}
+.icons-item use {
+  pointer-events: none;
+}
+
+.selected-icon {
+  width: 100px;
+  height: 100px;
+}
 @supports (-webkit-appearance:none){
 
 }

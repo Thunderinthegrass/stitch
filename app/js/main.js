@@ -14,9 +14,20 @@ const colorInput = document.querySelector(".color-input");
 const sidebar = document.querySelector(".sidebar");
 const removeColorBtn = document.querySelector(".remove-color-btn");
 
-rectWrapper.addEventListener("click", (e) => {
-  // console.log(e.target);
-});
+const icons = document.querySelectorAll('.icons-item');
+const selectedIcon = document.querySelector('.selected-icon');
+
+
+icons.forEach((elem) => {//показывает выбранную иконку
+  elem.addEventListener('click', (e) => {
+    selectedIcon.style.backgroundColor = `${getComputedStyle(elem).backgroundColor}`;
+    selectedIcon.style.backgroundImage = `url(${e.target.getAttribute('data-path')})`
+  })
+})
+
+
+let rect;
+
 //цвета элементов
 
 colorInput.addEventListener("click", () => {
@@ -25,24 +36,50 @@ colorInput.addEventListener("click", () => {
   removeColorBtn.classList.add("active");
 });
 
-const colorElements = () => {
-  const rect = rectWrapper.querySelectorAll(".rect");
+const colorElementsInLocalStorage = () => {//берет из  localStogage цвета и окрашивает соответствующие элементы в те цвета
+
+  rect = rectWrapper.querySelectorAll(".rect");
 
   for (let i = 0; i < rect.length; i++) {
     if (localStorage.getItem(`color${i}`)) {
       rect[i].style.backgroundColor = localStorage.getItem(`color${i}`);
+      rect[i].style.backgroundImage = localStorage.getItem(`path${i}`);
     }
+    // rect[i].style.backgroundImage = 'url(../img/svg/icon-star.svg)';
   }
+}
+
+// const colorElements = () => {//окрашивает элементы при нажатии, закидывает эти цвета в локал сторадж
+//   rect = rectWrapper.querySelectorAll(".rect");
+
+//   rect.forEach((elem, id) => {
+//     elem.addEventListener("click", () => {
+//       let color = colorInput.value;
+
+//       if (color != "#ffffff") {
+//         elem.style.backgroundColor = `${color}`;
+//         localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);
+
+
+//       }
+//     });
+//   });
+// };
+
+const colorElements = () => {//окрашивает элементы при нажатии, закидывает эти цвета в локал сторадж
+  rect = rectWrapper.querySelectorAll(".rect");
+
   rect.forEach((elem, id) => {
     elem.addEventListener("click", () => {
-      let color = colorInput.value;
+      let color = getComputedStyle(selectedIcon).backgroundColor;
+      let path = getComputedStyle(selectedIcon).backgroundImage;
 
       if (color != "#ffffff") {
         elem.style.backgroundColor = `${color}`;
-        localStorage.setItem(
-          `color${id}`,
-          getComputedStyle(elem).backgroundColor
-        );
+        elem.style.backgroundImage = `${path}`
+
+        localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);
+        localStorage.setItem(`path${id}`, getComputedStyle(elem).backgroundImage);
       }
     });
   });
@@ -256,29 +293,209 @@ const selectElements = () => {//select elements выделение элемен�
       if (selectRect) {
         selectRect.style.width = `${widthSelectRect}px`; //устанавливаем его ширину
         selectRect.style.height = `${heightSelectRect}px`; //устанавливаем его высоту
-
-        items.forEach((elem) => {
-          if (
-            selectRect.getBoundingClientRect().left <
-              elem.getBoundingClientRect().left &&
-            selectRect.getBoundingClientRect().right >
-              elem.getBoundingClientRect().right &&
-            selectRect.getBoundingClientRect().top <
-              elem.getBoundingClientRect().top &&
-            selectRect.getBoundingClientRect().bottom >
-              elem.getBoundingClientRect().bottom
-          ) {
-            elem.classList.add("selected");
-          }
-        });
       }
     }
   });
 
   document.body.addEventListener("mouseup", (e) => {
+    if (selectRect && e.shiftKey) {
+      items.forEach((elem) => {
+        if (
+          (//внутренние квадраты
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
+            &&
+            selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().bottom
+          )
+          ||
+          (//одиночный квадрат
+            selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right 
+            &&
+            selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+            &&
+            selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+            &&
+            getComputedStyle(selectRect).width != '2px'//при клике без протяжки квадрат не выделяется
+          )
+          ||
+          (//левый верхний угловой неполностью захваченный квадрат
+            selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().right
+            &&
+            selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+            &&
+            selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().bottom 
+            &&
+            selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().bottom
+          )
+          ||
+          (//правый верхний угловой неполностью захваченный квадрат
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right 
+            &&
+            selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().bottom 
+            &&
+            selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().bottom
+          )
+          ||
+          (//правый нижний угловой неполностью захваченный квадрат
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().bottom 
+            &&
+            selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
+          )
+          ||
+          (//левый нижний угловой неполностью захваченный квадрат
+            selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().right
+            &&
+            selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().bottom 
+            &&
+            selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
+          )
+          ||
+          (//верхние неполностью захваченные квадраты между угловыми верхними неполностью захваченными
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().right
+            &&
+            selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+            &&
+            selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().bottom 
+            &&
+            selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().bottom
+          )
+          ||
+          (//нижние неполностью захваченные квадраты между угловыми верхними неполностью захваченными
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+            &&
+            selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().right
+            &&
+            selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+            &&
+            selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
+            &&
+            selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
+            &&
+            selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+          )
+          ||
+          (//два и более неполностью захваченных горизонтальных квадрата
+            ((
+              selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+              &&
+              selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right 
+              &&
+              selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().left 
+              &&
+              selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+              &&
+              selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+            )
+            ||
+            (
+              selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+              &&
+              selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+              &&
+              selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().left 
+              &&
+              selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+              &&
+              selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+            )
+            ||
+            (
+              selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+              &&
+              selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+              &&
+              selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().right
+              &&
+              selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+              &&
+              selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+            ))
+            &&
+            getComputedStyle(selectRect).width != '2px'//при клике без протяжки квадрат не выделяется
+          )
+          ||
+          (//два и более неполностью захваченных вертикальных квадрата
+            ((
+              selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+              &&
+              selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
+              &&
+              selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+              &&
+              selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().bottom
+            )
+            ||
+            (
+              selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+              &&
+              selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
+              &&
+              selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
+              &&
+              selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+              &&
+              selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
+            )
+            ||
+            (
+              selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+              &&
+              selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
+              &&
+              selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
+              &&
+              selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().bottom
+              &&
+              selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
+            ))
+            &&
+            getComputedStyle(selectRect).width != '2px'//при клике без протяжки квадрат не выделяется
+        )
+        ) {
+          elem.classList.add("selected");
+          console.log(getComputedStyle(selectRect).width);
+          
+        }
+      })
+    }
+
     if (selectRect) {
       selectRect.remove();
     }
+    
   });
 };
 
@@ -294,7 +511,8 @@ document.addEventListener("DOMContentLoaded", () => {
     quantity
   ); //вызываем функцию создания квадратов, количество берем из локал стораджа
   removeColorInputValue(colorInput);
-  setTimeout(colorElements(), 2000);
+  setTimeout(colorElements(), 1000);
+  setTimeout(colorElementsInLocalStorage(), 1000)
 });
 
 document.body.onclick = (e) => {

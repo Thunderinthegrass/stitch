@@ -1,1 +1,86 @@
-<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><style>:root&gt;svg{display:none}:root&gt;svg:target{display:block}</style><svg data-name="Слой 1" viewBox="0 0 100 100" id="rect" xmlns="http://www.w3.org/2000/svg"><path fill="#37cbff" d="M.5.5h99v99H.5z"/><path d="M99 1v98H1V1h98m1-1H0v100h100V0z" fill="#22ffd7"/></svg></svg>
+<?xml version="1.0" encoding="utf-8"?>
+<svg viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<style>
+		:root>svg{display:none}:root>svg:target{display:block}
+	</style>
+	<svg id="icon-ampersant" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.acls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="acls-1" d="M913.86 388.06c0 6.89 6.49 12.09 15.79 12.09a24.61 24.61 0 0016-5.39c-4.59-3.88-13.21-11.21-21.74-18.84-4.28 2.08-10.05 5.85-10.05 12.14zM928 369c7.86-3.46 12.86-6.64 12.86-11.71 0-3.69-2.68-7.74-9-7.74s-9.73 4.12-9.73 8.68c-.06 4.32 2.55 7.61 5.87 10.77zm-44-39.22v98h98v-98zm73.79 75.27c-2.23-1.72-4.23-3.41-7.23-5.83C943.87 404 936.5 406 928 406c-15 0-23.8-7.83-23.8-16.78 0-8.15 6.34-13.72 15.1-17.47v-.28c-4-3.88-6.45-8.25-6.45-12.48 0-7.32 6.84-14.77 19.69-14.77 9.63 0 17.12 4.93 17.12 12.7 0 6.28-4.76 11.24-17 16v.3c6.57 5.87 13.89 12.36 18.87 16.64 3.57-4.18 5.93-10 7.45-17.46h9.16c-2.07 9.4-5.37 16.84-11.16 22.07 4.16 3.43 8.16 6.76 12.83 10.59z" transform="translate(-884.04 -329.78)" />
+	</svg>
+	<svg id="icon-arch" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.bcls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="bcls-1" d="M911 491.33v98h98v-98zm68.49 86.94c0-13-8.32-65.51-18.57-65.51s-18.57 52.51-18.57 65.51h-13.22c0-22.26 14.23-80 31.79-80s31.79 57.76 31.79 80z" transform="translate(-911 -491.33)" />
+	</svg>
+	<svg id="icon-asterisk" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.ccls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="ccls-1" d="M911 330v98h98v-98zm84.16 53.5l-29.91-3.09 19 23.22-12.48 7-11.87-27.13-13.27 27.28-11.29-7 18.82-24-29.32 3.67v-13.1L954 374l-18.62-24 12.08-6.77 12.28 26.89 12.48-27.08 11.88 6.58-18.81 24.57 29.91-3.87z" transform="translate(-911 -330)" />
+	</svg>
+	<svg id="icon-circle" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.dcls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="dcls-1" d="M911 491.33v98h98v-98zm49 86.94a37.94 37.94 0 1137.94-37.94A37.94 37.94 0 01960 578.27z" transform="translate(-911 -491.33)" />
+	</svg>
+	<svg id="icon-circle-outline" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.ecls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="ecls-1" d="M960 515.92a24.58 24.58 0 1024.58 24.58A24.58 24.58 0 00960 515.92zm-49-24.59v98h98v-98zm49 90.25a41.08 41.08 0 1141.08-41.08A41.08 41.08 0 01960 581.58z" transform="translate(-911 -491.33)" />
+	</svg>
+	<svg id="icon-dollar" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.fcls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="fcls-1" d="M897.52 592.72q0 3.6 11 4.7v-13.29q-10.99 2.78-11 8.59zm20.83 12.51v19.25a29.59 29.59 0 009.78-3.92q4.36-3 4.37-6.4 0-6.45-14.15-8.93zM862 561v98h98v-98zm74.09 65.07q-6.8 4.3-17.74 5.67v9.84a2.79 2.79 0 01-1.41 2.39 6.25 6.25 0 01-3.56.95q-4.86 0-4.86-3.26v-9.44q-27-.26-27-9.37c0-2.22 1.52-3.33 4.58-3.33a9.89 9.89 0 015 1.37 34.79 34.79 0 005.35 2.67 43.59 43.59 0 0012 1.7v-21h-.44a41.33 41.33 0 01-14.81-2.81q-7.74-3.18-7.73-8.85 0-5.07 7.07-9.55a46.57 46.57 0 0115.91-6v-7.11a2.85 2.85 0 011.46-2.41 6.47 6.47 0 013.62-1q4.75 0 4.75 3.15V576h.22a69.6 69.6 0 0112.1 1.22c5.93 1.07 8.9 2.42 8.9 4.08q0 3.25-4.92 3.25a64.13 64.13 0 01-7.76-.79 59 59 0 00-8.54-.76v15q12.21.74 19.12 5.36 6.3 4.3 6.3 10.37.07 7.46-7.61 12.34z" transform="translate(-862 -561)" />
+	</svg>
+	<svg id="icon-rectangle" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.gcls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="gcls-1" d="M911 491.33v98h98v-98zm76.93 76.93h-55.86v-55.85h55.86z" transform="translate(-911 -491.33)" />
+	</svg>
+	<svg id="icon-rhombus" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.hcls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="hcls-1" d="M768.33 523v98h98v-98zm50.75 87.23L790.29 572l28.79-37.89 28.8 37.89z" transform="translate(-768.33 -523)" />
+	</svg>
+	<svg id="icon-star" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.icls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="icls-1" d="M911 491.33v98h98v-98zm72.26 84.79L960 563.9l-23.26 12.22 4.44-25.89-18.81-18.35 26-3.77L960 504.54l11.63 23.57 26 3.77-18.81 18.35z" transform="translate(-911 -491.33)" />
+	</svg>
+	<svg id="icon-triangle" data-name="Слой 1" viewBox="0 0 98 98" xmlns="http://www.w3.org/2000/svg">
+		<defs>
+			<style>
+				.jcls-1{fill:#fff}
+			</style>
+		</defs>
+		<path class="jcls-1" d="M911 491.33v98h98v-98zM924.79 569l35.12-64.48L995 569z" transform="translate(-911 -491.33)" />
+	</svg>
+</svg>

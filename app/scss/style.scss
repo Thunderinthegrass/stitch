@@ -26,6 +26,7 @@
   box-sizing: content-box;
   position: relative;
   border: 1px solid #000000;
+  // background-image: url(../img/svg/icon-circle.svg);
   // z-index: 10000;
   &.selected{
     position: relative;
@@ -153,4 +154,83 @@ input{
   &[type="color" i]::-webkit-color-swatch-wrapper {
     padding: 0;
   }
+}
+.icons-wrapper{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+.icons-list{
+  display: flex;
+  gap: 1px;
+  max-width: 232px;
+  flex-wrap: wrap;
+  &_red{
+    background: #c70101;
+    border: 1px solid #c70101;
+    .icons-item{
+      background: #c70101;
+      &:hover{
+        svg{
+          fill: #ff9494;
+        }
+      }
+    }
+  }
+  &_green{
+    background: #056d05;
+    border: 1px solid #056d05;
+    .icons-item{
+      background: #056d05;
+      &:hover{
+        svg{
+          fill: #94ffaf;
+        }
+      }
+    }
+  }
+  &_blue{
+    background: #0000a3;
+    border: 1px solid #0000a3;
+    .icons-item{
+      background: #0000a3;
+      &:hover{
+        svg{
+          fill: #9694ff;
+        }
+      }
+    }
+  }
+  &_black{
+    background: #000000;
+    border: 1px solid #000000;
+    .icons-item{
+      background: #000000;
+      &:hover{
+        svg{
+          fill: #bebebe;
+        }
+      }
+    }
+  }
+}
+.icons-item{
+  width: 22px;
+  height: 22px;
+  cursor: pointer;
+  svg{
+    width: 22px;
+    height: 22px;
+    fill: #ffffff;
+    transition: .2s;
+    pointer-events: none;
+  }
+  use{
+    pointer-events: none;
+  }
+}
+.selected-icon{
+  width: 100px;
+  height: 100px;
 }
