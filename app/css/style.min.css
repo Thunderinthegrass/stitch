@@ -271,7 +271,8 @@ body {
 .rows-columns-btn,
 .rects-divide-btn,
 .input-color-label,
-.remove-color-btn {
+.remove-color-btn,
+.erase-btn {
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;
@@ -284,14 +285,16 @@ body {
 .rows-columns-btn:hover,
 .rects-divide-btn:hover,
 .input-color-label:hover,
-.remove-color-btn:hover {
+.remove-color-btn:hover,
+.erase-btn:hover {
   background: rgb(11, 194, 133);
 }
 .create-rect-btn:active,
 .rows-columns-btn:active,
 .rects-divide-btn:active,
 .input-color-label:active,
-.remove-color-btn:active {
+.remove-color-btn:active,
+.erase-btn:active {
   background: rgb(11, 194, 170);
 }
 
@@ -444,6 +447,8 @@ input {
 .selected-icon {
   width: 100px;
   height: 100px;
+  background: #ffffff;
+  position: relative;
 }
 @supports (-webkit-appearance:none){
 

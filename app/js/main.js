@@ -9,32 +9,26 @@ let columnInput = document.querySelector(".column-input");
 const rowsColumnsBtn = document.querySelector(".rows-columns-btn");
 
 const quantity = document.querySelector(".quantity");
-
-const colorInput = document.querySelector(".color-input");
 const sidebar = document.querySelector(".sidebar");
-const removeColorBtn = document.querySelector(".remove-color-btn");
 
 const icons = document.querySelectorAll('.icons-item');
 const selectedIcon = document.querySelector('.selected-icon');
 
+const eraseBtn = document.querySelector('.erase-btn');
+const rects = rectWrapper.querySelectorAll(".rect");
+
 
 icons.forEach((elem) => {//показывает выбранную иконку
+  selectedIcon.classList.remove('erase-active');
   elem.addEventListener('click', (e) => {
     selectedIcon.style.backgroundColor = `${getComputedStyle(elem).backgroundColor}`;
     selectedIcon.style.backgroundImage = `url(${e.target.getAttribute('data-path')})`
   })
 })
 
-
 let rect;
 
 //цвета элементов
-
-colorInput.addEventListener("click", () => {
-  //при нажатии на выбор цвета кнопка сброса цвета становится активной, при перезагрузке она неактивна
-  removeColorBtn.disabled = false;
-  removeColorBtn.classList.add("active");
-});
 
 const colorElementsInLocalStorage = () => {//берет из  localStogage цвета и окрашивает соответствующие элементы в те цвета
 
@@ -45,57 +39,35 @@ const colorElementsInLocalStorage = () => {//берет из  localStogage цв�
       rect[i].style.backgroundColor = localStorage.getItem(`color${i}`);
       rect[i].style.backgroundImage = localStorage.getItem(`path${i}`);
     }
-    // rect[i].style.backgroundImage = 'url(../img/svg/icon-star.svg)';
   }
 }
 
-// const colorElements = () => {//окрашивает элементы при нажатии, закидывает эти цвета в локал сторадж
-//   rect = rectWrapper.querySelectorAll(".rect");
-
-//   rect.forEach((elem, id) => {
-//     elem.addEventListener("click", () => {
-//       let color = colorInput.value;
-
-//       if (color != "#ffffff") {
-//         elem.style.backgroundColor = `${color}`;
-//         localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);
-
-
-//       }
-//     });
-//   });
-// };
-
-const colorElements = () => {//окрашивает элементы при нажатии, закидывает эти цвета в локал сторадж
+const colorElements = () => {//окрашивает элементы при нажатии, ставит им на фон картинку, закидывает это всё в локал сторадж
   rect = rectWrapper.querySelectorAll(".rect");
 
   rect.forEach((elem, id) => {
-    elem.addEventListener("click", () => {
-      let color = getComputedStyle(selectedIcon).backgroundColor;
-      let path = getComputedStyle(selectedIcon).backgroundImage;
+    elem.addEventListener("click", (e) => {//по клику на квадратик
+      let color = getComputedStyle(selectedIcon).backgroundColor;//берется цвет окошка выбранного цвета
+      let path = getComputedStyle(selectedIcon).backgroundImage;//и путь фоновой картинки окошка выбранного элемента
+      
+      if (color != "rgb(255, 255, 255)" && !e.altKey) {//если цвет окошка выбранного элемента не белый и не нажата кнопка alt,
+        elem.style.backgroundColor = `${color}`;//то квадратик окрашивается в цвет окошка выбранного элемента,
+        elem.style.backgroundImage = `${path}`;//и ему прописывается путь до картинки, такой же, как у окошка выбранного элемента
 
-      if (color != "#ffffff") {
-        elem.style.backgroundColor = `${color}`;
-        elem.style.backgroundImage = `${path}`
-
-        localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);
+        localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);//в локал сторадж закидывается цвет и путь к картинке
         localStorage.setItem(`path${id}`, getComputedStyle(elem).backgroundImage);
       }
     });
   });
 };
 
-const removeColorInputValue = (input) => {
-  //отключение value инпута
-  input.value = "#ffffff";
-  removeColorBtn.disabled = true; //кнопка сброса цвета становится неактивной
-  removeColorBtn.classList.remove("active");
-};
+const eraseIcons = (selectedIcon) => {//функция стирания квадратика
+  selectedIcon.style.backgroundColor = 'rgb(253, 255, 255)';
+}
 
-removeColorBtn.addEventListener("click", () => {
-  removeColorInputValue(colorInput);
-  console.log(colorInput.value);
-});
+eraseBtn.addEventListener('click', () => {//по клику на кнопку стирания вызываем функцию стирания
+  eraseIcons(selectedIcon);
+})
 
 const createTitle = (title, wrapperr) => {
   //генерирует заголовок
@@ -119,10 +91,7 @@ createRectBtn.addEventListener("click", () => {
 const widthHeightElems = () => {
   let elems = document.querySelectorAll(".rect");
 
-  // console.log(elems);
-
   let width = getComputedStyle(elems[0]).width;
-  // console.log(width);
 
   elems.forEach((elem) => {
     elem.style.width = `${width}`;
@@ -210,8 +179,8 @@ rectWrapper.addEventListener("wheel", (e) => {
 //перемещение поля и блокировка при этом покраски квадратов
 rectWrapper.onmousedown = function (e) {
   if (e.altKey) {
-    let color = colorInput.value;//при нажатой кнопке alt значение цвета запоминается и выставляется вместо него белый, а если значение белый, то квадрат не красится
-    colorInput.value = '#ffffff';
+    // let color = colorInput.value;//при нажатой кнопке alt значение цвета запоминается и выставляется вместо него белый, а если значение белый, то квадрат не красится
+    // colorInput.value = '#ffffff';
 
     let coords = getCoords(rectWrapper);
     var shiftX = e.pageX - coords.left;
@@ -235,9 +204,9 @@ rectWrapper.onmousedown = function (e) {
       document.onmousemove = null;
       rectWrapper.onmouseup = null;
       
-      setTimeout(() => {//после того, как передвинули поле, отпускаем кнопку мыши, и через 100 миллисекунд значение цвета становится тем же, что и было до нажатия кнопки, можно снова красить
-        colorInput.value = color;
-      }, 100)
+      // setTimeout(() => {//после того, как передвинули поле, отпускаем кнопку мыши, и через 100 миллисекунд значение цвета становится тем же, что и было до нажатия кнопки, можно снова красить
+      //   colorInput.value = color;
+      // }, 100)
     };
   }
 };
@@ -501,6 +470,44 @@ const selectElements = () => {//select elements выделение элемен�
 
 setTimeout(selectElements, 2000);
 
+
+//выбор цвета и окрашивание квадратов выбранным цветом
+// const colorInput = document.querySelector(".color-input");
+// const removeColorBtn = document.querySelector(".remove-color-btn");
+
+// const colorElements = () => {//окрашивает элементы при нажатии, закидывает эти цвета в локал сторадж
+//   rect = rectWrapper.querySelectorAll(".rect");
+
+//   rect.forEach((elem, id) => {
+//     elem.addEventListener("click", () => {
+//       let color = colorInput.value;
+
+//       if (color != "#ffffff") {
+//         elem.style.backgroundColor = `${color}`;
+//         localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);
+//       }
+//     });
+//   });
+// };
+
+// const removeColorInputValue = (input) => {
+//   //отключение value инпута
+//   input.value = "#ffffff";
+//   removeColorBtn.disabled = true; //кнопка сброса цвета становится неактивной
+//   removeColorBtn.classList.remove("active");
+// };
+
+// removeColorBtn.addEventListener("click", () => {
+//   removeColorInputValue(colorInput);
+//   console.log(colorInput.value);
+// });
+
+// colorInput.addEventListener("click", () => {
+//   //при нажатии на выбор цвета кнопка сброса цвета становится активной, при перезагрузке она неактивна
+//   removeColorBtn.disabled = false;
+//   removeColorBtn.classList.add("active");
+// });
+
 document.addEventListener("DOMContentLoaded", () => {
   // createTitle("Схема", inner);//генерация заголовка
   createGrid(rowInput, columnInput, rectWrapper, quantity);
@@ -510,7 +517,7 @@ document.addEventListener("DOMContentLoaded", () => {
     rectWrapper,
     quantity
   ); //вызываем функцию создания квадратов, количество берем из локал стораджа
-  removeColorInputValue(colorInput);
+  // removeColorInputValue(colorInput);
   setTimeout(colorElements(), 1000);
   setTimeout(colorElementsInLocalStorage(), 1000)
 });

@@ -28,9 +28,9 @@
   border: 1px solid #000000;
   // background-image: url(../img/svg/icon-circle.svg);
   // z-index: 10000;
-  &.selected{
+  &.selected {
     position: relative;
-    &::after{
+    &::after {
       position: absolute;
       content: "";
       left: 0;
@@ -49,28 +49,28 @@
     fill: rgb(255, 255, 255);
     fill: rgb(183, 31, 31);
   }
-  .cls-3{
+  .cls-3 {
     fill: #17cf73;
   }
-  &-wrapper{
+  &-wrapper {
     position: relative;
     display: flex;
     flex-direction: column;
-    .grid-row{
+    .grid-row {
       display: flex;
     }
   }
 }
-.select-rect{
+.select-rect {
   background: #08e4b463;
   border: 1px solid #06c098;
   position: absolute;
   z-index: 1100;
-  &.transparent{
+  &.transparent {
     opacity: 0;
   }
 }
-.sidebar{
+.sidebar {
   height: 100vh;
   position: absolute;
   padding: 30px 20px;
@@ -87,7 +87,8 @@
 .rows-columns-btn,
 .rects-divide-btn,
 .input-color-label,
-.remove-color-btn{
+.remove-color-btn,
+.erase-btn {
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;
@@ -95,40 +96,40 @@
   font-weight: 600;
   text-align: center;
   cursor: pointer;
-  &:hover{
+  &:hover {
     background: rgb(11, 194, 133);
   }
-  &:active{
+  &:active {
     background: rgb(11, 194, 170);
   }
 }
-.remove-color-btn{
+.remove-color-btn {
   background: #7ae6e0;
-  &:hover{
+  &:hover {
     background: #7ae6e0;
   }
-  &:active{
+  &:active {
     background: #7ae6e0;
   }
-  &.active{
+  &.active {
     background: #00bdb3;
   }
 }
-.label{
+.label {
   color: #000;
   width: 100%;
   height: 20px;
 }
-input{
+input {
   border: 1px solid #0bafa7;
   border-radius: 2px;
   outline-color: #0bafa7;
   padding: 5px 10px;
 }
-.input-color-label{
+.input-color-label {
   position: relative;
 }
-.input-wrapper{
+.input-wrapper {
   width: 120px;
   height: 120px;
   border-radius: 100%;
@@ -139,7 +140,7 @@ input{
   margin: 0 auto;
   border: 3px solid #00bdb3;
 }
-.color-input{
+.color-input {
   position: relative;
   width: 180px;
   height: 180px;
@@ -155,82 +156,84 @@ input{
     padding: 0;
   }
 }
-.icons-wrapper{
+.icons-wrapper {
   display: flex;
   flex-direction: column;
   gap: 5px;
   align-items: center;
 }
-.icons-list{
+.icons-list {
   display: flex;
   gap: 1px;
   max-width: 232px;
   flex-wrap: wrap;
-  &_red{
+  &_red {
     background: #c70101;
     border: 1px solid #c70101;
-    .icons-item{
+    .icons-item {
       background: #c70101;
-      &:hover{
-        svg{
+      &:hover {
+        svg {
           fill: #ff9494;
         }
       }
     }
   }
-  &_green{
+  &_green {
     background: #056d05;
     border: 1px solid #056d05;
-    .icons-item{
+    .icons-item {
       background: #056d05;
-      &:hover{
-        svg{
+      &:hover {
+        svg {
           fill: #94ffaf;
         }
       }
     }
   }
-  &_blue{
+  &_blue {
     background: #0000a3;
     border: 1px solid #0000a3;
-    .icons-item{
+    .icons-item {
       background: #0000a3;
-      &:hover{
-        svg{
+      &:hover {
+        svg {
           fill: #9694ff;
         }
       }
     }
   }
-  &_black{
+  &_black {
     background: #000000;
     border: 1px solid #000000;
-    .icons-item{
+    .icons-item {
       background: #000000;
-      &:hover{
-        svg{
+      &:hover {
+        svg {
           fill: #bebebe;
         }
       }
     }
   }
 }
-.icons-item{
+.icons-item {
   width: 22px;
   height: 22px;
   cursor: pointer;
-  svg{
+  svg {
     width: 22px;
     height: 22px;
     fill: #ffffff;
-    transition: .2s;
+    transition: 0.2s;
     pointer-events: none;
   }
-  use{
+  use {
     pointer-events: none;
   }
 }
-.selected-icon{
+.selected-icon {
   width: 100px;
   height: 100px;
+  background: #ffffff;
+  position: relative;
 }
