@@ -18,18 +18,41 @@ const eraseBtn = document.querySelector('.erase-btn');
 const rects = rectWrapper.querySelectorAll(".rect");
 
 
-icons.forEach((elem) => {//показывает выбранную иконку
+const colorSelectBtn = document.querySelector('.color-select-btn');
+
+
+
+icons.forEach((elem) => {//показывает выбранную иконку в окошку выбранной иконки
   selectedIcon.classList.remove('erase-active');
   elem.addEventListener('click', (e) => {
     selectedIcon.style.backgroundColor = `${getComputedStyle(elem).backgroundColor}`;
-    selectedIcon.style.backgroundImage = `url(${e.target.getAttribute('data-path')})`
+    selectedIcon.style.backgroundImage = `url(${e.target.getAttribute('data-path')})`;
   })
 })
 
 let rect;
 
-//цвета элементов
+colorSelectBtn.addEventListener('click', (e) => {//добавление цвета и иконки выделенной области
+  rect = rectWrapper.querySelectorAll(".rect");
 
+  rect.forEach((elem, id) => {
+    if (elem.classList.contains('selected')) {
+      let color = getComputedStyle(selectedIcon).backgroundColor;//берется цвет окошка выбранного цвета
+      let path = getComputedStyle(selectedIcon).backgroundImage;//и путь фоновой картинки окошка выбранного элемента
+      
+      if (color != "rgb(255, 255, 255)" && !e.altKey) {//если цвет окошка выбранного элемента не белый и не нажата кнопка alt,
+        elem.style.backgroundColor = `${color}`;//то квадратик окрашивается в цвет окошка выбранного элемента,
+        elem.style.backgroundImage = `${path}`;//и ему прописывается путь до картинки, такой же, как у окошка выбранного элемента
+
+        localStorage.setItem(`color${id}`, getComputedStyle(elem).backgroundColor);//в локал сторадж закидывается цвет и путь к картинке
+        localStorage.setItem(`path${id}`, getComputedStyle(elem).backgroundImage);
+      }
+      // elem.style.backgroundColor = '#ffff00';
+    }
+  })
+})
+
+//цвета элементов
 const colorElementsInLocalStorage = () => {//берет из  localStogage цвета и окрашивает соответствующие элементы в те цвета
 
   rect = rectWrapper.querySelectorAll(".rect");
@@ -63,6 +86,7 @@ const colorElements = () => {//окрашивает элементы при на
 
 const eraseIcons = (selectedIcon) => {//функция стирания квадратика
   selectedIcon.style.backgroundColor = 'rgb(253, 255, 255)';
+  selectedIcon.style.backgroundImage = 'none';
 }
 
 eraseBtn.addEventListener('click', () => {//по клику на кнопку стирания вызываем функцию стирания
@@ -289,7 +313,7 @@ const selectElements = () => {//select elements выделение элемен�
             &&
             selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
             &&
-            getComputedStyle(selectRect).width != '2px'//при клике без протяжки квадрат не выделяется
+            getComputedStyle(selectRect).width != '2.22222px'//при клике без протяжки квадрат не выделяется
           )
           ||
           (//левый верхний угловой неполностью захваченный квадрат
@@ -377,86 +401,96 @@ const selectElements = () => {//select elements выделение элемен�
           )
           ||
           (//два и более неполностью захваченных горизонтальных квадрата
-            ((
-              selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
-              &&
-              selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right 
-              &&
-              selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().left 
-              &&
-              selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
-              &&
-              selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
-            )
-            ||
             (
-              selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
-              &&
-              selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
-              &&
-              selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().left 
-              &&
-              selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
-              &&
-              selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+              (
+                selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+                &&
+                selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right 
+                &&
+                selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().left 
+                &&
+                selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+                &&
+                selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+                &&
+                getComputedStyle(selectRect).width != '2.22222px'//при клике без протяжки квадрат не выделяется
+              )
+              ||
+              (
+                selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().left
+                &&
+                selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+                &&
+                selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().left 
+                &&
+                selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+                &&
+                selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+                &&
+                getComputedStyle(selectRect).width != '2.22222px'//при клике без протяжки квадрат не выделяется
+              )
+              ||
+              (
+                selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+                &&
+                selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
+                &&
+                selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().right
+                &&
+                selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+                &&
+                selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+                &&
+                getComputedStyle(selectRect).width != '2.22222px'//при клике без протяжки квадрат не выделяется
+              )
             )
-            ||
-            (
-              selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
-              &&
-              selectRect.getBoundingClientRect().right > elem.getBoundingClientRect().right 
-              &&
-              selectRect.getBoundingClientRect().left < elem.getBoundingClientRect().right
-              &&
-              selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
-              &&
-              selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
-            ))
-            &&
-            getComputedStyle(selectRect).width != '2px'//при клике без протяжки квадрат не выделяется
           )
           ||
           (//два и более неполностью захваченных вертикальных квадрата
-            ((
-              selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
-              &&
-              selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
-              &&
-              selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
-              &&
-              selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().bottom
-            )
-            ||
             (
-              selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
-              &&
-              selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
-              &&
-              selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
-              &&
-              selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
-              &&
-              selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
+              (
+                selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+                &&
+                selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
+                &&
+                selectRect.getBoundingClientRect().top > elem.getBoundingClientRect().top 
+                &&
+                selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().bottom
+                &&
+                getComputedStyle(selectRect).width != '2.22222px'//при клике без протяжки квадрат не выделяется
+              )
+              ||
+              (
+                selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+                &&
+                selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
+                &&
+                selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
+                &&
+                selectRect.getBoundingClientRect().bottom < elem.getBoundingClientRect().bottom
+                &&
+                selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
+                &&
+                getComputedStyle(selectRect).width != '2.22222px'//при клике без протяжки квадрат не выделяется
+              )
+              ||
+              (
+                selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
+                &&
+                selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
+                &&
+                selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
+                &&
+                selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().bottom
+                &&
+                selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
+                &&
+                getComputedStyle(selectRect).width != '2.22222px'//при клике без протяжки квадрат не выделяется
+              )
             )
-            ||
-            (
-              selectRect.getBoundingClientRect().left > elem.getBoundingClientRect().left
-              &&
-              selectRect.getBoundingClientRect().right < elem.getBoundingClientRect().right
-              &&
-              selectRect.getBoundingClientRect().top < elem.getBoundingClientRect().top 
-              &&
-              selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().bottom
-              &&
-              selectRect.getBoundingClientRect().bottom > elem.getBoundingClientRect().top
-            ))
-            &&
-            getComputedStyle(selectRect).width != '2px'//при клике без протяжки квадрат не выделяется
-        )
+          )
         ) {
           elem.classList.add("selected");
-          console.log(getComputedStyle(selectRect).width);
-          
         }
       })
     }

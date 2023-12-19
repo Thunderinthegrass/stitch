@@ -272,7 +272,8 @@ body {
 .rects-divide-btn,
 .input-color-label,
 .remove-color-btn,
-.erase-btn {
+.erase-btn,
+.color-select-btn {
   background: #00bdb3;
   padding: 5px 12px;
   border-radius: 3px;
@@ -286,7 +287,8 @@ body {
 .rects-divide-btn:hover,
 .input-color-label:hover,
 .remove-color-btn:hover,
-.erase-btn:hover {
+.erase-btn:hover,
+.color-select-btn:hover {
   background: rgb(11, 194, 133);
 }
 .create-rect-btn:active,
@@ -294,7 +296,8 @@ body {
 .rects-divide-btn:active,
 .input-color-label:active,
 .remove-color-btn:active,
-.erase-btn:active {
+.erase-btn:active,
+.color-select-btn:active {
   background: rgb(11, 194, 170);
 }
 
