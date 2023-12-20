@@ -1,3 +1,16 @@
+let storage = {};
+storage = {...localStorage};
+// console.log(storage);
+let strStorage = '';
+for (key in storage) {
+  strStorage += `${key}: '${storage[key]}',
+  `
+}
+console.log(strStorage);
+
+
+
+
 const inner = document.querySelector(".inner");
 const createRectBtn = document.querySelector(".create-rect-btn");
 const rectWrapper = document.querySelector(".rect-wrapper");
@@ -559,3 +572,5 @@ document.addEventListener("DOMContentLoaded", () => {
 document.body.onclick = (e) => {
   // console.log("номер кнопки" + JSON.stringify(e));
 };
+
+
